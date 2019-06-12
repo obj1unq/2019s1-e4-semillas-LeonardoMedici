@@ -1,0 +1,39 @@
+import semillas.*
+import parcelas.*
+
+test "La planta de menta da semillas si mide mas de 0.4" {
+	const menta = new Menta(altura = 0.5)
+	assert.that(menta.daSemillas())
+}
+
+test "Una menta de 0.3 metros no da semillas y ocupa 0.9 de espacio" {
+	const menta = new Menta(altura = 0.3)
+	assert.that(not menta.daSemillas() && menta.espacio() == 0.9)
+}
+
+test "Una soja de 0.6 metros y del 2009 NO da semilla y ocupa 0.3" {
+	const soja = new Soja(altura = 0.6, anioDeObtencion = 2009)
+	assert.that(not soja.daSemillas() && soja.espacio() == 0.3 && soja.horasDeSolQueTolera() == 7)
+}
+
+test "Una quinoa del 2001 que tolera 9 horas al sol da semillas y no es fuerte." {
+	const quinoa = new Quinoa(horasDeSolQueTolera = 9, anioDeObtencion = 2001)
+	assert.that(quinoa.daSemillas() && not quinoa.esFuerte())
+}
+
+test "La soja trangenica nunca da semillas por mas que se cumpla la condicion de la soja"{
+	const sojaTransgenica = new SojaTransgenica(anioDeObtencion = 2010, altura = 1.5)
+	assert.notThat(sojaTransgenica.daSemillas())
+}
+
+test "La hierba buena ocupa el doble que la menta"{ //La menta ocupa su altura * 3.
+	const menta = new Menta(altura = 1)
+	const hierbaBuena = new HierbaBuena(altura = 1)
+	assert.that(menta.espacio() == 3 && hierbaBuena.espacio() == 6)
+}
+
+test "La menta es ideal en una parcela de 3 de ancho y 4 de largo"{
+	const menta = new Menta()
+	const parcela = new Parcela(ancho = 3, largo = 4, horasDeSol = 7)
+	assert.that(menta.esIdeal(parcela))
+}

@@ -1,0 +1,35 @@
+import semillas.*
+import parcelas.*
+
+test "La superficie de la parcela es su ancho por largo"{
+	const parcela = new Parcela(ancho = 3, largo = 5, horasDeSol = 7)
+	assert.that(parcela.superficie() == 15)
+}
+
+test "La parcela no tiene complicaciones"{
+	const menta = new Menta()
+	const soja = new Soja(altura = 1.5)
+	const quinoa = new Quinoa(anioDeObtencion = 2004, horasDeSolQueTolera = 6)
+	const parcela = new Parcela(plantas = [menta, soja, quinoa], ancho = 3, largo =4, horasDeSol = 5)
+	assert.notThat(parcela.tieneComplicaciones())
+}
+
+test "Se planta una planta"{
+	const menta = new Menta()
+	const parcela = new Parcela(ancho = 3, largo = 5, horasDeSol = 5)
+	parcela.plantar(menta)
+	assert.that(parcela.plantas().contains(menta))
+}
+
+test "Cantidad maxima que tolera la parcela es "{ // la superficie(3*5) + el largo ya que es mas largo que ancho.
+	const parcela = new Parcela(ancho = 3, largo = 5, horasDeSol = 5)
+	assert.that(parcela.cantidadMaxima() == 10)
+}
+
+test "La parcela muestra las plantas que tiene"{
+	const menta = new Menta()
+	const soja = new Soja(altura = 1.5)
+	const quinoa = new Quinoa(anioDeObtencion = 2004, horasDeSolQueTolera = 6)
+	const parcela = new Parcela(plantas = [menta, soja, quinoa], ancho = 3, largo =4, horasDeSol = 5)
+	assert.that(parcela.plantas() == [menta, soja, quinoa])
+}
